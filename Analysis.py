@@ -15,7 +15,7 @@ def filterFile(filename, search, fileout=None):
 
     filteredFile = pd.DataFrame(filteredFile)
     if fileout is not None:
-        filteredFile.to_csv(os.getcwd()+"/Data/"+fileout)
+        filteredFile.to_csv(os.getcwd() + "/Data/" + fileout)
     # uses file from Data folder and searches through line by line, prints the output, then optionally saves output
 
 
@@ -35,7 +35,7 @@ def generateTSData(tstype, args, fileout):
     if tstype == "multi_normal":  # assumes args are trios of means, sds, and lengths
         data = np.random.normal(args[0], args[1], args[2])
         for i in range(3, len(args), 3):
-            data = np.concatenate((data,np.random.normal(args[i], args[i+1], args[i+2])), axis=0)
+            data = np.concatenate((data, np.random.normal(args[i], args[i + 1], args[i + 2])), axis=0)
 
     data = pd.DataFrame(data)
     data.to_csv(os.getcwd() + '/Data/' + fileout)
@@ -43,6 +43,13 @@ def generateTSData(tstype, args, fileout):
     # wherin args would be the standard deviation and mean
     # and then the output file is the name where the data is saved
 
+
+def testTSDistribution(filename, window_size, expected_mean, expected_sd, sd_error_range):
+    file_df = pd.read_csv(os.getcwd() + "/Data/" + filename)
+
+    comp = ((file_df.rolling(window_size) - expected_mean) / expected_sd)
+    if np.any(abs(comp) > sd_error_range):
+        print(filename + " fails test")
 
 # def createTSRule(window_size, expression, name):
 #     pass
@@ -55,15 +62,15 @@ def generateTSData(tstype, args, fileout):
 #
 #
 def createRule(expression, ruleName, ruleError):
-    rules = pd.read_csv(os.getcwd()+"/Data/Rules.csv") # needs header column names to work
+    rules = pd.read_csv(os.getcwd() + "/Data/Rules.csv")  # needs header column names to work
     rules.append([ruleName, expression, ruleError])
-    rules.to_csv(os.getcwd()+"/Data/Rules.csv")
+    rules.to_csv(os.getcwd() + "/Data/Rules.csv")
     # creates a search/filter rule using regex and saves it to a Rules.csv file
 
 
 def applyRule(filename, ruleName):
-    file = pd.read_csv(os.getcwd()+"/Data/"+filename)
-    Rules = pd.read_csv(os.getcwd()+"/Data/Rules.csv")
+    file = pd.read_csv(os.getcwd() + "/Data/" + filename)
+    Rules = pd.read_csv(os.getcwd() + "/Data/Rules.csv")
     rule = Rules[Rules["Name"] == ruleName][0]
     ruleExp = rule["Expression"]
     ruleError = rule["Error"]

@@ -48,3 +48,7 @@ def Input(usrInput):
         FileIntegrity.specifyCriticalFile(args[0])
     elif command == "initializeHashTable":
         FileIntegrity.initializeHashTable()
+    elif command == "createRule":
+        Analysis.createRule(args[0], args[1], args[2])
+    elif command == "applyRule":
+        Analysis.applyRule(args[0], args[1])

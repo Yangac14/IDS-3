@@ -1,4 +1,6 @@
 import os
+import re
+
 import pandas as pd
 import numpy as np
 
@@ -52,11 +54,21 @@ def generateTSData(tstype, args, fileout):
 #     # applies a rule from TSRules.csv to a file
 #
 #
-# def createRule(expression):
-#     pass
-#     # creates a search/filter rule using regex and saves it to a Rules.csv file
-#
-#
-# def applyRule(filename, ruleName):
-#     pass
-#     # applies a rule from Rules.csv to a file
+def createRule(expression, ruleName, ruleError):
+    rules = pd.read_csv(os.getcwd()+"/Data/Rules.csv") # needs header column names to work
+    rules.append([ruleName, expression, ruleError])
+    rules.to_csv(os.getcwd()+"/Data/Rules.csv")
+    # creates a search/filter rule using regex and saves it to a Rules.csv file
+
+
+def applyRule(filename, ruleName):
+    file = pd.read_csv(os.getcwd()+"/Data/"+filename)
+    Rules = pd.read_csv(os.getcwd()+"/Data/Rules.csv")
+    rule = Rules[Rules["Name"] == ruleName][0]
+    ruleExp = rule["Expression"]
+    ruleError = rule["Error"]
+
+    for i in file:
+        if file[i].contains(ruleExp):
+            print(file[i], ruleError)
+    # applies a rule from Rules.csv to a file

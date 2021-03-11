@@ -1,9 +1,11 @@
+import virtualbox
 import Commands
+from Network import VMConnection
 
 # initialize function can/will be used to initialize the vm
 # and could be used to schedule various other functions (more important in sprint 2 I think)
 def initalize():
-    pass
+    VMConnection.initialize()
 
 # main loop that simply asks for user input
 # later when setting up scheduled tasks or running other programs this will have to be broken up

@@ -1,6 +1,7 @@
 import sys
 
 import Analysis
+import FileIntegrity
 import IO
 
 
@@ -43,5 +44,7 @@ def Input(usrInput):
             print("error no filename argument is passed.")
     elif command == "generateTSData":
         Analysis.generateTSData(args[0], args[1:-1], args[-1])
-    elif command == "":
-        pass
+    elif command == "specifyCriticalFile":
+        FileIntegrity.specifyCriticalFile(args[0])
+    elif command == "initializeHashTable":
+        FileIntegrity.initializeHashTable()

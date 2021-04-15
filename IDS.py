@@ -14,5 +14,6 @@ def main():
     while True:
         Commands.Input(input("#>"))
 
-initalize()
+if input("connect to VM? y/N:").lower() == 'y':
+    initalize()
 main()

@@ -1,6 +1,6 @@
 import os
 import re
-
+import psutil
 import pandas as pd
 import numpy as np
 
@@ -97,4 +97,10 @@ def abnormal(info, percent):
 
 
 #takes an int and checks if it is abnormally larger than the previous inputs
+def take_cpu():
+    psutil.cpu_times()
 
+def take_disk():
+    psutil.disk_partitions()
+def take_mem():
+    psutil.virtual_memory()

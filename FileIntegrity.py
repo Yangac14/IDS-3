@@ -35,6 +35,12 @@ def initializeHashTable():
     # also should add a universal file indexer and use that for indexing,
     # as otherwise changing the order of integrityList messes up parity with hashTable
 
+def checkHashTable(hashy, insecure):
+    data = pd.read_csv('/Data/integrityList.csv')
+    s = data.iloc[hashy]
+    if (insecure != s):
+        print("CODE ON SECURE FILE HAS BEEN MODIFIED")
+
 
 # def checkHashTable():
 #     pass

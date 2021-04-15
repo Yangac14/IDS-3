@@ -79,3 +79,22 @@ def applyRule(filename, ruleName):
         if file[i].contains(ruleExp):
             print(file[i], ruleError)
     # applies a rule from Rules.csv to a file
+def abnormal(info, percent):
+    sumed = 0
+    if previous[0] == 0:
+        for i in previous:
+            previous[i] = info
+    else:
+        for i in range(4):
+            sumed += previous[i]
+        avg = sumed/4
+        previous[4] = info
+        if (avg*(1 + percent / 100) < previous[4]):
+            print("Abnormal amount amount of processed data")
+    for i in range(4):
+        previous[i] = previous[i+1]
+
+
+
+#takes an int and checks if it is abnormally larger than the previous inputs
+

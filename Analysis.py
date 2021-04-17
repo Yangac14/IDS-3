@@ -3,6 +3,8 @@ import re
 import psutil
 import pandas as pd
 import numpy as np
+alertcount = 0
+previous = [0, 0, 0, 0, 0]
 
 
 def filterFile(filename, search, fileout=None):
@@ -121,3 +123,9 @@ def take_disk():
     psutil.disk_partitions()
 def take_mem():
     psutil.virtual_memory()
+ # responsile for finding the CPU data,Disk data, or memory data
+def repeated_alerts():
+    global alertcount
+    if alertcount >= 2:
+        print("Multiple alerts on a window, possible intruder detected")
+#finds alerts on a program to check whether or not there are more than two

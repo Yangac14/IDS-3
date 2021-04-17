@@ -52,6 +52,8 @@ def Input(usrInput):
         Analysis.createRule(args[0], args[1], args[2])
     elif command == "applyRule":
         Analysis.applyRule(args[0], args[1])
+    elif command == "listdir":
+        Analysis.printDataFolder()
     # a lot of these above commands will error out if not provided with correct args
     # implementing a tuple based arg system would fix some of that,
     # but in general there needs to be a pass through these to make them more robust to

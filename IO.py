@@ -4,6 +4,9 @@ import pandas as pd
 from Network import VMConnection
 
 
+
+# import functions below need to differentiate between host fs and vm fs for file searching
+
 def importCSV(filename=None):
     if filename is None:
         pass
@@ -17,17 +20,21 @@ def importCSV(filename=None):
 def importLog(filename=None):
     if filename is None:
         pass
-    # if filename is none, open prompt window to find file
-    else:
-        file = pd.read_csv(filename)
-        file.to_csv(os.getcwd() + "/Data/" + filename.split('/')[-1].split('.')[0])
-        # might convert implicitly - needs testing
-    # else use filename to import file, convert to csv, and save to Data folder
-
-
-def perfPoll(timeLen, timeInterval, fileout):
-    VMConnection.vm_access.execute("usr/bin/vmstat", [str(timeLen), str(timeInterval), ">",
-                                                      "/media/sf_Data/" + fileout])  # .split('.')[0] + ".csv"
+    #     # if filename is none, open prompt window to find file
+    #     else:
+    #         file = pd.read_csv(filename)
+    #         file.to_csv(os.getcwd() + "/Data/" + filename.split('/')[-1].split('.')[0])
+    #         # might convert implicitly - needs testing
+    #     # else use filename to import file, convert to csv, and save to Data folder
+    #
+    # # ssh logs can be extracted from /var/log/auth.log
+    #
+    #
+    # def perfPoll(timeLen, timeInterval, fileout):
+    #     VMConnection.vm_access.execute("usr/bin/vmstat", [str(timeLen), str(timeInterval), ">",
+    #                                                       "/media/sf_Data/" + fileout])  # .split('.')[0] + ".csv"
+    #     # potential alternative to having to direct through /bin/example for commands would be to create scripts
+    # in the shared data folder that can be ran using this process
 
 # def getFile():
 #     pass

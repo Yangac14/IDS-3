@@ -25,7 +25,15 @@ def printFile(filename, search=None):
     for i in range(len(file)):
         if search in str(file[i]):
             print(str(file[i]))
-    # prints file from data folder to console
+    # prints specified file from data folder to console
+
+
+def printDataFolder():
+    files = os.listdir(os.getcwd() + "/Data/")
+
+    for file in range(len(files)):
+        print(file)
+    # prints files in Data folder
 
 
 def generateTSData(tstype, args, fileout):
@@ -68,17 +76,26 @@ def createRule(expression, ruleName, ruleError):
     # creates a search/filter rule using regex and saves it to a Rules.csv file
 
 
-def applyRule(filename, ruleName):
+def applyRule(filename, ruleName, aggregate=False):
     file = pd.read_csv(os.getcwd() + "/Data/" + filename)
     Rules = pd.read_csv(os.getcwd() + "/Data/Rules.csv")
     rule = Rules[Rules["Name"] == ruleName][0]
     ruleExp = rule["Expression"]
     ruleError = rule["Error"]
 
-    for i in file:
-        if file[i].contains(ruleExp):
-            print(file[i], ruleError)
+    if aggregate:
+        numErrors = 0
+        for i in file:
+            if file[i].contains(ruleExp):
+                numErrors += 1
+        print(numErrors, " x ", ruleError)
+    else:
+        for i in file:
+            if file[i].contains(ruleExp):
+                print(file[i], ruleError)
     # applies a rule from Rules.csv to a file
+
+
 def abnormal(info, percent):
     sumed = 0
     if previous[0] == 0:
